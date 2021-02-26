@@ -13,29 +13,30 @@ import org.hibernate.SessionFactory;
 
 import com.olmo.EmpleadosHibernate.entity.Departamento;
 import com.olmo.EmpleadosHibernate.entity.Direccion;
+import com.olmo.EmpleadosHibernate.entity.Pais;
 import com.olmo.EmpleadosHibernate.entity.Trabajador;
 import com.olmo.EmpleadosHibernate.service.HibernateUtil;
 
 
-public class DepartamentoDAO {
+public class PaisDAO {
 
 	// Obtenemos el SessionFactory
 
 	SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
 
-	public void create(String nombre, Direccion dir, List<Trabajador> trabajadores) {
+	public void create(String nombre, List<Direccion> direcciones) {
 
 		// Abrimos la sesión mediante el SessionFactory
 		Session session = sessionFactory.openSession();
 
 		// Creamos el objeto
-		Departamento dept = new Departamento();
-		dept.setNombre(nombre);
-		dept.setDir(dir);
-		dept.setTrabajadores(trabajadores);
+		Pais pais = new Pais();
+		pais.setNombre(nombre);
+		pais.setDirecciones(direcciones);
+		
 		Transaction tx = (Transaction) session.beginTransaction();
 
-		session.save(dept);// <|--- Aqui guardamos el objeto en la base de datos.
+		session.save(pais);// <|--- Aqui guardamos el objeto en la base de datos.
 
 		try {
 			tx.commit();
@@ -61,14 +62,14 @@ public class DepartamentoDAO {
 
 	}
 
-	public Departamento read(Integer id) {
+	public Pais read(String id) {
 
 		// Abrimos la sesión mediante el SessionFactory
 		Session session = sessionFactory.openSession();
-		Departamento dept = (Departamento) session.get(Departamento.class, id);
+		Pais pais = (Pais) session.get(Pais.class, id);
 		session.close();
 //		sessionFactory.close();
-		return dept;
+		return pais;
 	}
 
 }
