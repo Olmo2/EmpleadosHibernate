@@ -46,6 +46,25 @@ public class Direccion {
 			departamentos.add(dept);
 		}
 	}
+	
+
+	public Direccion() {
+		super();
+	}
+
+
+	public Direccion(Integer id, String calle, String cp, String ciudad, String provincia, Pais pais,
+			List<Departamento> departamentos) {
+		super();
+		this.id = id;
+		this.calle = calle;
+		this.cp = cp;
+		this.ciudad = ciudad;
+		this.provincia = provincia;
+		this.pais = pais;
+		this.departamentos = departamentos;
+	}
+
 
 	public Integer getId() {
 		return id;
@@ -103,14 +122,11 @@ public class Direccion {
 		this.departamentos = departamentos;
 	}
 
-	public Direccion() {
-		super();
-	}
 
 	@Override
 	public String toString() {
 		return "Direccion [id=" + id + ", calle=" + calle + ", cp=" + cp + ", ciudad=" + ciudad + ", provincia="
-				+ provincia + ", pais=" + pais.getNombre() + ", departamentos=" + departamentos + "]";
+				+ provincia + ", pais=" + pais.getId() + ", departamentos=" + departamentos + "]";
 	}
 	
 	

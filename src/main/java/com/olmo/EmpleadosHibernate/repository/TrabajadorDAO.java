@@ -1,6 +1,6 @@
 package com.olmo.EmpleadosHibernate.repository;
 
-import java.util.List;
+import java.sql.Date;
 
 import javax.transaction.HeuristicMixedException;
 import javax.transaction.HeuristicRollbackException;
@@ -14,28 +14,29 @@ import org.hibernate.SessionFactory;
 import com.olmo.EmpleadosHibernate.entity.Departamento;
 import com.olmo.EmpleadosHibernate.entity.Direccion;
 import com.olmo.EmpleadosHibernate.entity.Trabajador;
+import com.olmo.EmpleadosHibernate.entity.Trabajo;
 import com.olmo.EmpleadosHibernate.service.HibernateUtil;
 
 
-public class DepartamentoDAO {
+public class TrabajadorDAO {
 
 	// Obtenemos el SessionFactory
 
 	SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
 
-	public void create(String nombre, Direccion dir, List<Trabajador> trabajadores) {
+	public void create(Integer id, String nombre, String apellidos, String email, String tlf, Date fecha_alta,
+			Trabajo trabajo, Departamento dept) {
 
 		// Abrimos la sesión mediante el SessionFactory
 		Session session = sessionFactory.openSession();
 
 		// Creamos el objeto
-		Departamento dept = new Departamento();
-		dept.setNombre(nombre);
-		dept.setDir(dir);
-		dept.setTrabajadores(trabajadores);
+		Trabajador trabajador = new Trabajador(id,nombre,apellidos,email,tlf,fecha_alta,trabajo,dept);
+		
+		
 		Transaction tx = (Transaction) session.beginTransaction();
 
-		session.save(dept);// <|--- Aqui guardamos el objeto en la base de datos.
+		session.save(trabajador);// <|--- Aqui guardamos el objeto en la base de datos.
 
 		try {
 			tx.commit();
@@ -61,20 +62,19 @@ public class DepartamentoDAO {
 
 	}
 
-	public Departamento read(Integer id) {
+	public Trabajador read(Integer id) {
 
 		// Abrimos la sesión mediante el SessionFactory
 		Session session = sessionFactory.openSession();
-		Departamento dept = (Departamento) session.get(Departamento.class, id);
+		Trabajador trabajador = (Trabajador) session.get(Trabajador.class, id);
 		session.close();
 		sessionFactory.close();
-		return dept;
+		return trabajador;
 	}
-	
 	public void delete(Integer id) {
 		Session session = sessionFactory.openSession();
-		Departamento dept = (Departamento) session.get(Departamento.class, id);
-		session.delete(dept);
+		Trabajador trabajador = (Trabajador) session.get(Trabajador.class, id);
+		session.delete(trabajador);
 		session.close();
 		sessionFactory.close();
 		

@@ -43,6 +43,21 @@ public class Trabajador {
 
 	
 
+	public Trabajador(Integer id, String nombre, String apellidos, String email, String tlf, Date fecha_alta,
+			Trabajo trabajo, Departamento dept) {
+		super();
+		this.id = id;
+		this.nombre = nombre;
+		this.apellidos = apellidos;
+		this.email = email;
+		this.tlf = tlf;
+		this.fecha_alta = fecha_alta;
+		this.trabajo = trabajo;
+		this.dept = dept;
+	}
+
+
+
 	public Integer getId() {
 		return id;
 	}

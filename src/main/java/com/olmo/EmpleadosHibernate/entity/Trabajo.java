@@ -43,7 +43,21 @@ public class Trabajo {
 		}
 	}
 
+	
+	public Trabajo() {
+		super();
+	}
 
+
+	public Trabajo(Integer id, String nombre, float salario_min, float salario_max, List<Trabajador> trabajadores) {
+		super();
+		this.id = id;
+		this.nombre = nombre;
+		this.salario_min = salario_min;
+		this.salario_max = salario_max;
+		this.trabajadores = trabajadores;
+	}
+	
 	public Integer getId() {
 		return id;
 	}
@@ -94,9 +108,7 @@ public class Trabajo {
 	}
 
 
-	public Trabajo() {
-		super();
-	}
+	
 
 
 	@Override

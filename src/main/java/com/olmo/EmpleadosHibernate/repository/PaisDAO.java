@@ -13,29 +13,30 @@ import org.hibernate.SessionFactory;
 
 import com.olmo.EmpleadosHibernate.entity.Departamento;
 import com.olmo.EmpleadosHibernate.entity.Direccion;
+import com.olmo.EmpleadosHibernate.entity.Pais;
+import com.olmo.EmpleadosHibernate.entity.PaisId;
 import com.olmo.EmpleadosHibernate.entity.Trabajador;
 import com.olmo.EmpleadosHibernate.service.HibernateUtil;
 
 
-public class DepartamentoDAO {
+public class PaisDAO {
 
 	// Obtenemos el SessionFactory
 
 	SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
 
-	public void create(String nombre, Direccion dir, List<Trabajador> trabajadores) {
+	public void create(String cod, String nombre, List<Direccion> dirs) {
 
 		// Abrimos la sesión mediante el SessionFactory
 		Session session = sessionFactory.openSession();
 
 		// Creamos el objeto
-		Departamento dept = new Departamento();
-		dept.setNombre(nombre);
-		dept.setDir(dir);
-		dept.setTrabajadores(trabajadores);
+		Pais pais = new Pais();
+		pais.setId(new PaisId (cod,nombre));
+		pais.setDirecciones(dirs);
 		Transaction tx = (Transaction) session.beginTransaction();
 
-		session.save(dept);// <|--- Aqui guardamos el objeto en la base de datos.
+		session.save(pais);// <|--- Aqui guardamos el objeto en la base de datos.
 
 		try {
 			tx.commit();
@@ -61,23 +62,24 @@ public class DepartamentoDAO {
 
 	}
 
-	public Departamento read(Integer id) {
+	public Pais read(String id, String nombre) {
 
 		// Abrimos la sesión mediante el SessionFactory
 		Session session = sessionFactory.openSession();
-		Departamento dept = (Departamento) session.get(Departamento.class, id);
+		Pais pais = (Pais) session.get(Pais.class, new PaisId(id,nombre));
 		session.close();
 		sessionFactory.close();
-		return dept;
+		return pais;
 	}
 	
-	public void delete(Integer id) {
+	public void delete(String id,String nombre) {
 		Session session = sessionFactory.openSession();
-		Departamento dept = (Departamento) session.get(Departamento.class, id);
-		session.delete(dept);
+		Pais pais = (Pais) session.get(Pais.class, new PaisId(id,nombre));
+		session.delete(pais);
 		session.close();
 		sessionFactory.close();
 		
 	}
+	
 
 }

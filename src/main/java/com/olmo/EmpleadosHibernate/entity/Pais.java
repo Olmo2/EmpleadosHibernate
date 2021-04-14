@@ -4,9 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Column;
+import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -15,14 +15,10 @@ import javax.persistence.Table;
 public class Pais {
 
 	
-	@Id
-	private String id;
-	
-	@Column
-	private String nombre;
+	@EmbeddedId
+	private PaisId id;
 	
 	@OneToMany(fetch = FetchType.EAGER, mappedBy = "pais")
-	
 	private List<Direccion> direcciones = new ArrayList<Direccion>();
 	
 	public void addDireccion(Direccion dir) {
@@ -38,21 +34,15 @@ public class Pais {
 		super();
 	}
 
-	public String getId() {
+	public PaisId getId() {
 		return id;
 	}
 
-	public void setId(String id) {
+	public void setId(PaisId id) {
 		this.id = id;
 	}
 
-	public String getNombre() {
-		return nombre;
-	}
-
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
-	}
+	
 
 	public List<Direccion> getDirecciones() {
 		return direcciones;
@@ -65,7 +55,7 @@ public class Pais {
 
 	@Override
 	public String toString() {
-		return "Pais [id=" + id + ", nombre=" + nombre + ", direcciones=" + direcciones + "]";
+		return "Pais [id=" + id +  ", direcciones=" + direcciones + "]";
 	}
 
 
